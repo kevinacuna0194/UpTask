@@ -63,8 +63,11 @@ class LoginController
         ]);
     }
 
-    public static function confirmar()
+    public static function confirmar(Router $router)
     {
-        echo "Desde Confirmar...";
+        /** Render a la vista */
+        $router->render('auth/confirmar', [
+            'titulo' => 'Confirme tu Cuenta UpTask'
+        ]);
     }
 }
