@@ -44,12 +44,15 @@ class LoginController
         ]);
     }
 
-    public static function reestablecer()
+    public static function reestablecer(Router $router)
     {
-        echo "Desde Reestablecer...";
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
+
+        /** Render a la vista */
+        $router->render('auth/reestablecer', [
+            'titulo' => 'Reestablecer Password'
+        ]);
     }
 
     public static function mensaje()
