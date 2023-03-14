@@ -2,8 +2,9 @@
 
 namespace Controllers;
 
-use Model\Usuario;
 use MVC\Router;
+use classes\Email;
+use Model\Usuario;
 
 class LoginController
 {
@@ -53,7 +54,11 @@ class LoginController
                     /** Crear nuevo usuario */
                     $resultado = $usuario->guardar();
 
-                    if($resultado) {
+                    /** Enviar Email */
+                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarConfirmacion();
+
+                    if ($resultado) {
                         header('Location: /mensaje');
                     }
                 }
