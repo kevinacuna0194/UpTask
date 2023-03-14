@@ -41,12 +41,12 @@ class Usuario extends ActiveRecord
             self::$alertas['error'][] = 'El Password no Puede Estar Vacio';
         }
 
-        if (strlen(!$this->password) < 5) {
-            self::$alertas['error'][] = 'El Password Debe Contener al Menos 5 Caracteres';
+        if (strlen($this->password) < 5) {
+            self::$alertas['error'][] = 'El password debe contener al menos 6 caracteres';
         }
 
         if ($this->password !== $this->password2) {
-            self::$alertas['error'][] = 'Los Passwords son Diferentes';
+            self::$alertas['error'][] = 'Los password son diferentes';
         }
 
         return self::$alertas;

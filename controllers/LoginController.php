@@ -33,6 +33,17 @@ class LoginController
             $usuario->sincronizar($_POST);
 
             $alertas = $usuario->validarNuevaCuenta();
+
+            if (empty($alertas)) {
+                $existeUsuario = Usuario::where('email', $usuario->email); // NULL (Si no existe)
+
+                if ($existeUsuario) {
+                    Usuario::setAlerta('error', 'El Usuario ya está registrado');
+                    $alertas = Usuario::getAlertas();
+                } else {
+                    /** Crear nuevo usuario */
+                }
+            }
         }
 
         /** Render a la vista */
