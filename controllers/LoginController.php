@@ -25,6 +25,7 @@ class LoginController
 
     public static function crear(Router $router)
     {
+        $alertas = [];
         /** Instanciar el modelo de Usuarios */
         $usuario = new Usuario;
 
@@ -32,14 +33,13 @@ class LoginController
             $usuario->sincronizar($_POST);
 
             $alertas = $usuario->validarNuevaCuenta();
-
-            debuguear($alertas);
         }
 
         /** Render a la vista */
         $router->render('auth/crear', [
             'titulo' => 'Crea tu Cuenta en UpTask',
-            'usuario' => $usuario
+            'usuario' => $usuario,
+            'alertas' => $alertas
         ]);
     }
 
