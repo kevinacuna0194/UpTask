@@ -82,7 +82,7 @@ class LoginController
             $usuario = new Usuario($_POST);
             $alertas = $usuario->validarEmail();
 
-            if(empty($alertas)) {
+            if (empty($alertas)) {
                 /** Buscar el Usuario */
                 $usuario = Usuario::where('email', $usuario->email);
 
@@ -97,10 +97,9 @@ class LoginController
 
                     /** 3- Enviar email */
                     $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
-                    $email-> enviarInstrucciones();
+                    $email->enviarInstrucciones();
                     /** 4- Imprimir alerta */
                     Usuario::setAlerta('exito', 'Hemos enviado las instrucciones a tu email');
-
                 } else {
                     Usuario::setAlerta('error', 'Usuario no Existe o no Esta Confirmado');
                 }
@@ -122,17 +121,35 @@ class LoginController
 
         $mostrar = true;
 
-        if(!$token) header('Location: /');
+        if (!$token) header('Location: /');
 
         /** Identificar el Usuario con el token */
         $usuario = Usuario::where('token', $token);
 
-        if(empty($usuario)) {
+        if (empty($usuario)) {
             Usuario::setAlerta('error', 'Token No Válido');
             $mostrar = false;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            /** Añadir el nuevo password */
+            $usuario->sincronizar($_POST);
+
+            /** Validar Password */
+            $alertas = $usuario->validarPassword();
+
+            if(empty($alertas)) {
+                /** Hashear el nuevo password */
+
+                /** Eliminar el token */
+
+                /** Guardar el usuario en la BD */
+
+                /** Redireccionar */
+
+                debuguear($usuario);
+            }
         }
 
         $alertas = Usuario::getAlertas();
@@ -157,12 +174,12 @@ class LoginController
     {
         /** Leer Token de la URL */
         $token = s($_GET['token']);
-        if(!$token) header('Llocation: /');
+        if (!$token) header('Llocation: /');
 
         /** Encontrar al usuario con el Token */
         $usuario = Usuario::where('token', $token);
 
-        if(empty($usuario)) {
+        if (empty($usuario)) {
             /** No se encontró usuario con ese Token */
             Usuario::setAlerta('error', 'Token no Válido');
         } else {

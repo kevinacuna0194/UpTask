@@ -7,17 +7,17 @@
 
         <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-        <?php if($mostrar) { ?>
+        <?php if ($mostrar) { ?>
 
-        <form class="formulario" action="/reestablecer" method="POST">
+            <form class="formulario" method="POST"> <!-- Quitar el action="/reestablecer" para no perder la referencia del token -->
 
-            <div class="campo">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Tu Password" name="password" />
-            </div>
+                <div class="campo">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Tu Password" name="password" />
+                </div>
 
-            <input type="submit" class='boton' value="Guardar Password">
-        </form>
+                <input type="submit" class='boton' value="Guardar Password">
+            </form>
 
         <?php } ?>
 
