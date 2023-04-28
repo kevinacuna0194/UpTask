@@ -18,10 +18,46 @@ class LoginController
 
             $alertas = $usuario->validarLogin();
 
-            if(empty($alertas)) {
+            if (empty($alertas)) {
                 /** Verificar que el usuario exista */
+                $usuario = Usuario::where('email', $usuario->email);
+
+                if (!$usuario || !$usuario->confirmado) {
+                    Usuario::setAlerta('error', 'El Usuario No Existe o No Esta Confirmado');
+                } else {
+                    /** El Usuario existe */
+                    if (password_verify($_POST['password'], $usuario->password)) {
+                        /** Iniciar la Sesión*/
+                        session_start();
+
+                        $_SESSION['id'] = $usuario->id;
+                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['email'] = $usuario->email;
+                        $_SESSION['login'] = true;
+
+                        /* debuguear($_SESSION);
+                            array(4) {
+                            ["id"]=>
+                            string(2) "12"
+                            ["nombre"]=>
+                            string(6) " Kevin"
+                            ["email"]=>
+                            string(17) "correo@correo.com"
+                            ["login"]=>
+                            bool(true)
+                            }
+                        */
+
+                        /** Redireccionar */
+                        header('Location: /proyectos');
+                    } else {
+                        Usuario::setAlerta('error', 'Password Incorrecto');
+                    }
+                }
             }
         }
+
+        $alertas = Usuario::getAlertas();
 
         /** Render a la vista */
         $router->render('auth/login', [

@@ -7,7 +7,7 @@
 
         <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
 
-        <form class="formulario" action="/" method="POST"> // novalidate
+        <form class="formulario" action="/" method="POST"> <!-- novalidate -->
             <div class="campo">
                 <label for="email">Email</label>
                 <input type="email" id="email" placeholder="Tu Email" name="email" />
