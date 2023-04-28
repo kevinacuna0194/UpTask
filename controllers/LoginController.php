@@ -49,7 +49,7 @@ class LoginController
                         */
 
                         /** Redireccionar */
-                        header('Location: /proyectos');
+                        header('Location: /dashboard');
                     } else {
                         Usuario::setAlerta('error', 'Password Incorrecto');
                     }
