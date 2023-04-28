@@ -68,7 +68,10 @@ class LoginController
 
     public static function logout()
     {
-        echo "Desde Logout...";
+        /** Traer informació de la Sesión que esté en el servidor */
+        session_start();
+        $_SESSION = [];
+        header('Location: /');
     }
 
     public static function crear(Router $router)
