@@ -5,7 +5,7 @@ namespace Model;
 class Proyecto extends ActiveRecord
 {
     protected static $tabla = 'proyectos';
-    protected static $columnasDB = ['id', 'proyecto', 'url', 'propiedadId' ];
+    protected static $columnasDB = ['id', 'proyecto', 'url', 'propiedadId'];
 
     public $id;
     public $proyecto;
@@ -18,5 +18,14 @@ class Proyecto extends ActiveRecord
         $this->proyecto = $args['proyecto'] ?? '';
         $this->url = $args['url'] ?? '';
         $this->propietarioId = $args['propietarioId'] ?? '';
+    }
+
+    public function validarProyecto()
+    {
+        if (!$this->proyecto) {
+            self::$alertas['error'][] = 'El Nombre del Proyecto es Obligatorio';
+        }
+
+        return self::$alertas;
     }
 }
