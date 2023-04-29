@@ -68,7 +68,7 @@ class LoginController
 
     public static function logout()
     {
-        /** Traer informació de la Sesión que esté en el servidor */
+        /** Traer información de la Sesión que esté en el servidor */
         session_start();
         $_SESSION = [];
         header('Location: /');

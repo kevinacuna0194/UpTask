@@ -11,6 +11,8 @@ class DashboardController
         session_start();
         isAuth();
 
-        $router->render('dashboard/index', []);
+        $router->render('dashboard/index', [
+            'titulo' => 'Proyectos'
+        ]);
     }
 }
