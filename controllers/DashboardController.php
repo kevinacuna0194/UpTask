@@ -67,9 +67,9 @@ class DashboardController
         
         if(!$token) header('Location: /dashboard');
 
-        /** Revisar que la persona que visita el proyecto, es quien lo creo */
         $proyecto = Proyecto::where('url', $token);
 
+        /** Revisar que la persona que visita el proyecto, es quien lo creo */
         if($proyecto->propietarioId !== $_SESSION['id']) {
             header('Location: /dashboard');
         }
