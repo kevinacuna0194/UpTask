@@ -19,6 +19,7 @@ class TareaController
 
         if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) header('Location: /404');
 
+        /** Obtener todas las tareas asignadas al proyecto */
         $tareas = Tarea::belongsTo('proyectoId', $proyecto->id);
 
         echo json_encode(['tareas' => $tareas]);
